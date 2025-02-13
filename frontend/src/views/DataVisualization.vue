@@ -135,7 +135,7 @@ export default {
                   borderWidth: 2,
                   fill: true,
                   backgroundColor: this.createGradient(this.$refs.lineChart, "rgb(173, 139, 247)", "rgb(133, 77, 255)"),
-                  tension: 0.4, // Smoother curve
+                  tension: 0.4,
                 },
               ],
             },
