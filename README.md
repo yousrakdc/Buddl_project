@@ -1,4 +1,4 @@
-# Buddl test- Visualisation de Données
+# Buddl test- Visualisation de données
 ![captude_d_ecran](https://github.com/user-attachments/assets/d82806c3-ae03-475c-ac09-21467ad6190b)
 
 
