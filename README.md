@@ -76,14 +76,20 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 ## Structure du Projet
 
 ```
-buddl/
+buddl_project/
 ├── backend/
 │   ├── server.js
 │   ├── models/
 │   ├── routes/
+│   └── config/
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
+│   │   ├── router/
+│	│	│	├── index.js
+│   │   ├── views/
+│	│	│	├── HomePage.vue
+│	│	│	├── DataVisualization.vue
 │   │   ├── App.vue
 │   │   └── main.js
 │   ├── public/
