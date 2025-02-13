@@ -84,7 +84,8 @@ buddl_project/
 │   └── config/
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
+│   │   ├── assets/
+│	│	│	├── logo.png
 │   │   ├── router/
 │	│	│	├── index.js
 │   │   ├── views/
