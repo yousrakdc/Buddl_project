@@ -1,4 +1,6 @@
 # Buddl test- Visualisation de Données
+![captude_d_ecran](https://github.com/user-attachments/assets/d82806c3-ae03-475c-ac09-21467ad6190b)
+
 
 ## Introduction
 
@@ -60,10 +62,6 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
   - Diagrammes en barres
   - Diagrammes en lignes
   - Diagrammes en camemberts
-
-- **Données dynamiques :**
-  - Les données sont récupérées en temps réel depuis une base de données MongoDB.
-  - Mise à jour automatique des graphiques lors de la modification des données.
 
 -   **Intégration fluide :**
     -   Communication transparente entre le frontend et le backend.
