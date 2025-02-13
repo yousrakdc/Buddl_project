@@ -1,23 +1,28 @@
 <template>
   <div :class="{'dark-mode': isDarkMode}">
     <div class="header">
-    <h1 class="title">
+      <h1 class="title">
+        <!-- Logo and title -->
         <img src="@/assets/logo.png" alt="Logo Buddl" class="logo" />
         Visualisation des données
-    </h1>
+      </h1>
+      <!-- Toggle button for dark mode -->
       <button @click="toggleDarkMode" class="mode-toggle">
         {{ isDarkMode ? 'Mode Clair' : 'Mode Sombre' }}
       </button>
     </div>
     <div class="charts-wrapper">
+      <!-- Bar chart -->
       <div class="chart-container">
         <h2>Graphique en barres (Ventes mensuelles)</h2>
         <canvas ref="barChart"></canvas>
       </div>
+      <!-- Line chart -->
       <div class="chart-container">
         <h2>Graphique en courbe (Utilisateurs par âge)</h2>
         <canvas ref="lineChart"></canvas>
       </div>
+      <!-- Pie chart -->
       <div class="chart-container">
         <h2>Graphique en camembert (Catégories)</h2>
         <canvas ref="pieChart"></canvas>
@@ -34,24 +39,26 @@ export default {
   name: "App",
   data() {
     return {
-      salesData: [],
-      usersData: [],
-      categoriesData: [],
-      isDarkMode: false,
+      salesData: [],    // Sales data for bar chart
+      usersData: [],    // User data for line chart
+      categoriesData: [], // Categories data for pie chart
+      isDarkMode: false, // Dark mode toggle state
     };
   },
   async mounted() {
     try {
+      // Register chart.js components
       Chart.register(...registerables);
       await this.fetchData();
       this.$nextTick(() => {
-        this.renderCharts();
+        this.renderCharts(); // Render charts once data is fetched
       });
     } catch (error) {
       console.error("Erreur lors de l'initialisation :", error);
     }
   },
   methods: {
+    // Fetch data from API
     async fetchData() {
       try {
         const response = await axios.get("http://localhost:5001/data");
@@ -67,9 +74,11 @@ export default {
         console.error("Erreur lors de la récupération des données :", error);
       }
     },
+    // Render all charts
     renderCharts() {
       try {
         if (this.salesData.length > 0) {
+          // Bar chart
           new Chart(this.$refs.barChart, {
             type: "bar",
             data: {
@@ -89,10 +98,7 @@ export default {
             options: {
               responsive: true,
               plugins: {
-                legend: {
-                  display: true,
-                  position: "top",
-                },
+                legend: { display: true, position: "top" },
               },
               scales: {
                 y: {
@@ -116,6 +122,7 @@ export default {
         }
 
         if (this.usersData.length > 0) {
+          // Line chart
           new Chart(this.$refs.lineChart, {
             type: "line",
             data: {
@@ -128,17 +135,14 @@ export default {
                   borderWidth: 2,
                   fill: true,
                   backgroundColor: this.createGradient(this.$refs.lineChart, "rgb(173, 139, 247)", "rgb(133, 77, 255)"),
-                  tension: 0.4, // Courbe plus lisse
+                  tension: 0.4, // Smoother curve
                 },
               ],
             },
             options: {
               responsive: true,
               plugins: {
-                legend: {
-                  display: true,
-                  position: "top",
-                },
+                legend: { display: true, position: "top" },
               },
               scales: {
                 y: {
@@ -162,6 +166,7 @@ export default {
         }
 
         if (this.categoriesData.length > 0) {
+          // Pie chart
           new Chart(this.$refs.pieChart, {
             type: "pie",
             data: {
@@ -183,10 +188,7 @@ export default {
             options: {
               responsive: true,
               plugins: {
-                legend: {
-                  display: true,
-                  position: "top",
-                },
+                legend: { display: true, position: "top" },
               },
               animation: {
                 duration: 1000,
@@ -199,10 +201,12 @@ export default {
         console.error("Erreur lors du rendu des graphiques :", error);
       }
     },
+    // Toggle dark mode
     toggleDarkMode() {
       this.isDarkMode = !this.isDarkMode;
-      this.renderCharts(); // Re-rend les graphiques pour appliquer le mode sombre/clair
+      this.renderCharts(); // Re-render charts to apply dark/light mode
     },
+    // Create gradient color for charts
     createGradient(chart, color1, color2) {
       const ctx = chart.getContext("2d");
       const gradient = ctx.createLinearGradient(0, 0, 0, chart.height);
@@ -215,12 +219,13 @@ export default {
 </script>
 
 <style>
-
+/* Importing Google font */
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;700&display=swap');
 
+/* Root variables for color scheme */
 :root {
-  --primary-color: rgb(133, 77, 255); /* violet foncé */
-  --secondary-color: rgb(173, 139, 247); /*  violet clair */
+  --primary-color: rgb(133, 77, 255); /* dark violet */
+  --secondary-color: rgb(173, 139, 247); /* light violet */
   --background-light: #ffffff;
   --background-dark: #1e1e1e;
   --text-light: #f4f4f4;
@@ -229,6 +234,7 @@ export default {
   --card-bg-dark: #2d2d2d;
 }
 
+/* General page setup */
 html, body {
   height: 100%;
   margin: 0;
@@ -248,6 +254,7 @@ body {
   height: 100%;
 }
 
+/* Dark mode styling */
 .dark-mode {
   background-color: var(--background-dark);
   color: var(--text-light);
@@ -257,16 +264,11 @@ body {
   flex-direction: column;
 }
 
+/* Header styles */
 .logo {
   height: 40px;
   margin-right: 10px;
   vertical-align: middle;
-}
-
-.main-content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
 }
 
 .header {
@@ -280,6 +282,7 @@ body {
   font-weight: 700; 
 }
 
+/* Mode toggle button */
 .mode-toggle {
   background-color: var(--secondary-color);
   color: white;
@@ -294,6 +297,7 @@ body {
   background-color: rgb(133, 77, 255);
 }
 
+/* Layout for charts */
 .charts-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -332,6 +336,7 @@ canvas:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Responsive design */
 @media (max-width: 768px) {
   .charts-wrapper {
     grid-template-columns: 1fr;
@@ -340,20 +345,6 @@ canvas:hover {
   .header {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .mode-toggle {
-    margin-top: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header h1 {
-    font-size: 1.5rem;
-  }
-
-  .mode-toggle {
-    padding: 8px 16px;
   }
 }
 </style>
