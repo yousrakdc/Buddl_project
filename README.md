@@ -79,7 +79,6 @@ buddl_project/
 │   ├── server.js
 │   ├── models/
 │   ├── routes/
-│   └── config/
 ├── frontend/
 │   ├── src/
 │   │   ├── assets/
